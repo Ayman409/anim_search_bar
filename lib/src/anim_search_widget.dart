@@ -140,7 +140,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      width: 200,
 
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
@@ -180,6 +179,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 opacity: (toggle == 0) ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 200),
                 child: Container(
+                  width: 200,
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
