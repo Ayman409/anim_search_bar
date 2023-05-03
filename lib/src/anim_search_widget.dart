@@ -139,7 +139,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      // height: 100,
 
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
@@ -147,8 +147,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
         duration: Duration(milliseconds: widget.animationDurationInMilli),
-        height: 48.0,
-        width: (toggle == 0) ? 100.0 : widget.width,
+        height: 45.0,
+        width: (toggle == 0) ? 85.0 : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
@@ -378,8 +378,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                             ? Text(
                                 widget.label,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+                                  color: Color(0xff3A3F3D),
+                                  fontSize: 10,
                                 ),
                               )
                             : Container()
