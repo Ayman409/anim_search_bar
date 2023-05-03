@@ -27,6 +27,7 @@ class AnimSearchBar extends StatefulWidget {
   final TextEditingController textController;
   final Icon? suffixIcon;
   final Icon? prefixIcon;
+  final String label;
   final String helpText;
   final int animationDurationInMilli;
   final onSuffixTap;
@@ -54,10 +55,10 @@ class AnimSearchBar extends StatefulWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.helpText = "Search...",
-    
+
     /// Height of wrapper container
     this.height = 100,
-    
+
     /// choose your custom color
     this.color = Colors.white,
 
@@ -77,7 +78,7 @@ class AnimSearchBar extends StatefulWidget {
 
     /// The onSubmitted cannot be null
     required this.onSubmitted,
-    
+
     /// make the search bar to open from right to left
     this.rtl = false,
 
@@ -95,6 +96,7 @@ class AnimSearchBar extends StatefulWidget {
 
     /// can add list of inputformatters to control the input
     this.inputFormatters,
+    required this.label,
   }) : super(key: key);
 
   @override
@@ -137,7 +139,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+      height: 100,
 
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
@@ -151,7 +153,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
           color: toggle == 1 ? widget.textFieldColor : widget.color,
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(20.0),
 
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
@@ -181,7 +183,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
                     color: widget.color,
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: AnimatedBuilder(
                     child: GestureDetector(
@@ -311,29 +313,9 @@ class _AnimSearchBarState extends State<AnimSearchBar>
               /// can add custom color or the color will be white
               /// toggle button color based on toggle state
               color: toggle == 0 ? widget.color : widget.textFieldColor,
-              borderRadius: BorderRadius.circular(30.0),
-              child: IconButton(
-                splashRadius: 19.0,
-
-                ///if toggle is 1, which means it's open. so show the back icon, which will close it.
-                ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
-                ///prefixIcon is of type Icon
-                icon: widget.prefixIcon != null
-                    ? toggle == 1
-                        ? Icon(
-                            Icons.arrow_back_ios,
-                            color: widget.textFieldIconColor,
-                          )
-                        : widget.prefixIcon!
-                    : Icon(
-                        toggle == 1 ? Icons.arrow_back_ios : Icons.search,
-                        // search icon color when closed
-                        color: toggle == 0
-                            ? widget.searchIconColor
-                            : widget.textFieldIconColor,
-                        size: 20.0,
-                      ),
-                onPressed: () {
+              borderRadius: BorderRadius.circular(20.0),
+              child: GestureDetector(
+                onTap: () {
                   setState(
                     () {
                       ///if the search bar is closed
@@ -362,6 +344,43 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     },
                   );
                 },
+                child: Row(
+                  children: [
+                    IconButton(
+                      splashRadius: 19.0,
+
+                      ///if toggle is 1, which means it's open. so show the back icon, which will close it.
+                      ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
+                      ///prefixIcon is of type Icon
+                      icon: widget.prefixIcon != null
+                          ? toggle == 1
+                              ? Icon(
+                                  Icons.arrow_back_ios,
+                                  color: widget.textFieldIconColor,
+                                )
+                              : widget.prefixIcon!
+                          : Icon(
+                              toggle == 1 ? Icons.arrow_back_ios : Icons.search,
+                              // search icon color when closed
+                              color: toggle == 0
+                                  ? widget.searchIconColor
+                                  : widget.textFieldIconColor,
+                              size: 20.0,
+                            ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      widget.label,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xff3A3F3D),
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
               ),
             ),
           ],
