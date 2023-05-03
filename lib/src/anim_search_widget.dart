@@ -375,11 +375,14 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           },
                         ),
                         toggle == 0
-                            ? Text(
-                                widget.label,
-                                style: TextStyle(
-                                  color: Color(0xff3A3F3D),
-                                  fontSize: 10,
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 3.0),
+                                child: Text(
+                                  widget.label,
+                                  style: TextStyle(
+                                    color: Color(0xff3A3F3D),
+                                    fontSize: 10,
+                                  ),
                                 ),
                               )
                             : Container()
