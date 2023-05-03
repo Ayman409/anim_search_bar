@@ -140,7 +140,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      width: 100,
+      width: 200,
 
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
@@ -154,7 +154,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
           color: toggle == 1 ? widget.textFieldColor : widget.color,
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(17.0),
 
           /// show boxShadow unless false was passed
           boxShadow: !widget.boxShadow
@@ -184,7 +184,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
                     color: widget.color,
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(17.0),
                   ),
                   child: AnimatedBuilder(
                     child: GestureDetector(
@@ -300,7 +300,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                       ),
                       alignLabelWithHint: true,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(17.0),
                         borderSide: BorderSide.none,
                       ),
                     ),
@@ -310,41 +310,43 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             ),
 
             ///Using material widget here to get the ripple effect on the prefix icon
-            Material(
-              /// can add custom color or the color will be white
-              /// toggle button color based on toggle state
-              color: toggle == 0 ? widget.color : widget.textFieldColor,
-              borderRadius: BorderRadius.circular(20.0),
-              child: GestureDetector(
-                onTap: () {
-                  setState(
-                    () {
-                      ///if the search bar is closed
-                      if (toggle == 0) {
-                        toggle = 1;
-                        setState(() {
-                          ///if the autoFocus is true, the keyboard will pop open, automatically
-                          if (widget.autoFocus)
-                            FocusScope.of(context).requestFocus(focusNode);
-                        });
+            GestureDetector(
+              onTap: () {
+                setState(
+                  () {
+                    ///if the search bar is closed
+                    if (toggle == 0) {
+                      toggle = 1;
+                      setState(() {
+                        ///if the autoFocus is true, the keyboard will pop open, automatically
+                        if (widget.autoFocus)
+                          FocusScope.of(context).requestFocus(focusNode);
+                      });
 
-                        ///forward == expand
-                        _con.forward();
-                      } else {
-                        ///if the search bar is expanded
-                        toggle = 0;
+                      ///forward == expand
+                      _con.forward();
+                    } else {
+                      ///if the search bar is expanded
+                      toggle = 0;
 
-                        ///if the autoFocus is true, the keyboard will close, automatically
-                        setState(() {
-                          if (widget.autoFocus) unfocusKeyboard();
-                        });
+                      ///if the autoFocus is true, the keyboard will close, automatically
+                      setState(() {
+                        if (widget.autoFocus) unfocusKeyboard();
+                      });
 
-                        ///reverse == close
-                        _con.reverse();
-                      }
-                    },
-                  );
-                },
+                      ///reverse == close
+                      _con.reverse();
+                    }
+                  },
+                );
+              },
+              child: Material(
+                /// can add custom color or the color will be white
+                /// toggle button color based on toggle state
+                ///
+                color: toggle == 0 ? widget.color : widget.textFieldColor,
+
+                borderRadius: BorderRadius.circular(17.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -372,36 +374,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                                     : widget.textFieldIconColor,
                                 size: 20.0,
                               ),
-                        onPressed: () {
-                          setState(
-                            () {
-                              ///if the search bar is closed
-                              if (toggle == 0) {
-                                toggle = 1;
-                                setState(() {
-                                  ///if the autoFocus is true, the keyboard will pop open, automatically
-                                  if (widget.autoFocus)
-                                    FocusScope.of(context)
-                                        .requestFocus(focusNode);
-                                });
-
-                                ///forward == expand
-                                _con.forward();
-                              } else {
-                                ///if the search bar is expanded
-                                toggle = 0;
-
-                                ///if the autoFocus is true, the keyboard will close, automatically
-                                setState(() {
-                                  if (widget.autoFocus) unfocusKeyboard();
-                                });
-
-                                ///reverse == close
-                                _con.reverse();
-                              }
-                            },
-                          );
-                        },
+                        onPressed: () {},
                       ),
                     ),
                     SizedBox(
