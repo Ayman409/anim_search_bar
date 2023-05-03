@@ -309,80 +309,77 @@ class _AnimSearchBarState extends State<AnimSearchBar>
             ),
 
             ///Using material widget here to get the ripple effect on the prefix icon
-            GestureDetector(
-              onTap: () {
-                setState(
-                  () {
-                    ///if the search bar is closed
-                    if (toggle == 0) {
-                      toggle = 1;
-                      setState(() {
-                        ///if the autoFocus is true, the keyboard will pop open, automatically
-                        if (widget.autoFocus)
-                          FocusScope.of(context).requestFocus(focusNode);
-                      });
+            Material(
+              /// can add custom color or the color will be white
+              /// toggle button color based on toggle state
+              ///
+              color: toggle == 0 ? widget.color : widget.textFieldColor,
 
-                      ///forward == expand
-                      _con.forward();
-                    } else {
-                      ///if the search bar is expanded
-                      toggle = 0;
+              borderRadius: BorderRadius.circular(17.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    splashRadius: 19.0,
+                    padding: EdgeInsets.all(0),
 
-                      ///if the autoFocus is true, the keyboard will close, automatically
-                      setState(() {
-                        if (widget.autoFocus) unfocusKeyboard();
-                      });
+                    ///if toggle is 1, which means it's open. so show the back icon, which will close it.
+                    ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
+                    ///prefixIcon is of type Icon
+                    icon: widget.prefixIcon != null
+                        ? toggle == 1
+                            ? Icon(
+                                Icons.arrow_back_ios,
+                                color: widget.textFieldIconColor,
+                              )
+                            : widget.prefixIcon!
+                        : Icon(
+                            toggle == 1 ? Icons.arrow_back_ios : Icons.search,
+                            // search icon color when closed
+                            color: toggle == 0
+                                ? widget.searchIconColor
+                                : widget.textFieldIconColor,
+                            size: 20.0,
+                          ),
+                    onPressed: () {
+                      setState(
+                        () {
+                          ///if the search bar is closed
+                          if (toggle == 0) {
+                            toggle = 1;
+                            setState(() {
+                              ///if the autoFocus is true, the keyboard will pop open, automatically
+                              if (widget.autoFocus)
+                                FocusScope.of(context).requestFocus(focusNode);
+                            });
 
-                      ///reverse == close
-                      _con.reverse();
-                    }
-                  },
-                );
-              },
-              child: Material(
-                /// can add custom color or the color will be white
-                /// toggle button color based on toggle state
-                ///
-                color: toggle == 0 ? widget.color : widget.textFieldColor,
+                            ///forward == expand
+                            _con.forward();
+                          } else {
+                            ///if the search bar is expanded
+                            toggle = 0;
 
-                borderRadius: BorderRadius.circular(17.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                      splashRadius: 19.0,
-                      padding: EdgeInsets.all(0),
+                            ///if the autoFocus is true, the keyboard will close, automatically
+                            setState(() {
+                              if (widget.autoFocus) unfocusKeyboard();
+                            });
 
-                      ///if toggle is 1, which means it's open. so show the back icon, which will close it.
-                      ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
-                      ///prefixIcon is of type Icon
-                      icon: widget.prefixIcon != null
-                          ? toggle == 1
-                              ? Icon(
-                                  Icons.arrow_back_ios,
-                                  color: widget.textFieldIconColor,
-                                )
-                              : widget.prefixIcon!
-                          : Icon(
-                              toggle == 1 ? Icons.arrow_back_ios : Icons.search,
-                              // search icon color when closed
-                              color: toggle == 0
-                                  ? widget.searchIconColor
-                                  : widget.textFieldIconColor,
-                              size: 20.0,
-                            ),
-                      onPressed: () {},
-                    ),
-                    toggle == 0
-                        ? Text(
-                            widget.label,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          )
-                        : Container()
-                  ],
-                ),
+                            ///reverse == close
+                            _con.reverse();
+                          }
+                        },
+                      );
+                    },
+                  ),
+                  toggle == 0
+                      ? Text(
+                          widget.label,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        )
+                      : Container()
+                ],
               ),
             ),
           ],
