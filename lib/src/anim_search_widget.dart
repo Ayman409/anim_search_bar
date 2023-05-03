@@ -179,7 +179,6 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 opacity: (toggle == 0) ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 200),
                 child: Container(
-                  width: 200,
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     /// can add custom color or the color will be white
@@ -347,12 +346,13 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 color: toggle == 0 ? widget.color : widget.textFieldColor,
 
                 borderRadius: BorderRadius.circular(17.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: IconButton(
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
                         splashRadius: 19.0,
+                        padding: EdgeInsets.all(0),
 
                         ///if toggle is 1, which means it's open. so show the back icon, which will close it.
                         ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
@@ -376,20 +376,18 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                               ),
                         onPressed: () {},
                       ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: Text(
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
                         widget.label,
                         style: TextStyle(
                             fontSize: 12,
                             color: Color(0xff3A3F3D),
                             fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
