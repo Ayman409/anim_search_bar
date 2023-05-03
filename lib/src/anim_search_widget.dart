@@ -24,6 +24,8 @@ class AnimSearchBar extends StatefulWidget {
 
   final double width;
   final double height;
+  final double heightOfContainer;
+  final double widthOfContainer;
   final TextEditingController textController;
   final Icon? suffixIcon;
   final Icon? prefixIcon;
@@ -97,6 +99,8 @@ class AnimSearchBar extends StatefulWidget {
     /// can add list of inputformatters to control the input
     this.inputFormatters,
     required this.label,
+    required this.heightOfContainer,
+    required this.widthOfContainer,
   }) : super(key: key);
 
   @override
@@ -147,8 +151,8 @@ class _AnimSearchBarState extends State<AnimSearchBar>
       ///Using Animated container to expand and shrink the widget
       child: AnimatedContainer(
         duration: Duration(milliseconds: widget.animationDurationInMilli),
-        height: 45.0,
-        width: (toggle == 0) ? 85.0 : widget.width,
+        height: widget.heightOfContainer,
+        width: (toggle == 0) ? widget.widthOfContainer : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           /// can add custom  color or the color will be white
@@ -375,14 +379,11 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                           },
                         ),
                         toggle == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(right: 3.0),
-                                child: Text(
-                                  widget.label,
-                                  style: TextStyle(
-                                    color: Color(0xff3A3F3D),
-                                    fontSize: 10,
-                                  ),
+                            ? Text(
+                                widget.label,
+                                style: TextStyle(
+                                  color: Color(0xff3A3F3D),
+                                  fontSize: 10,
                                 ),
                               )
                             : Container()
