@@ -140,6 +140,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
   Widget build(BuildContext context) {
     return Container(
       height: 100,
+      width: 100,
 
       ///if the rtl is true, search bar will be from right to left
       alignment: widget.rtl ? Alignment.centerRight : Alignment(-1.0, 0.0),
@@ -345,6 +346,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                   );
                 },
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       child: IconButton(
@@ -370,7 +372,36 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                                     : widget.textFieldIconColor,
                                 size: 20.0,
                               ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(
+                            () {
+                              ///if the search bar is closed
+                              if (toggle == 0) {
+                                toggle = 1;
+                                setState(() {
+                                  ///if the autoFocus is true, the keyboard will pop open, automatically
+                                  if (widget.autoFocus)
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNode);
+                                });
+
+                                ///forward == expand
+                                _con.forward();
+                              } else {
+                                ///if the search bar is expanded
+                                toggle = 0;
+
+                                ///if the autoFocus is true, the keyboard will close, automatically
+                                setState(() {
+                                  if (widget.autoFocus) unfocusKeyboard();
+                                });
+
+                                ///reverse == close
+                                _con.reverse();
+                              }
+                            },
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
